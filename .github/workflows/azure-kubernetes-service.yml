@@ -12,7 +12,7 @@ env:
   RESOURCE_GROUP: 'rg-eshop'
   CLUSTER_NAME: 'aks-eshop'
   DEPLOYMENT_MANIFEST_PATH: './product.yml'
-  DOCKER_PATH: './DockerfileProducts'
+  PRODUCTS_PATH: './Products/bin/Release/'
 
 jobs:
   buildImage:
@@ -34,4 +34,4 @@ jobs:
       # Builds and pushes an image up to your Azure Container Registry
       - name: Build and push image to ACR
         run: |
-          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} .
+          az acr build --image ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/${{ env.CONTAINER_NAME }}:${{ github.sha }} PRODUCTS_PATH --registry ${{ env.AZURE_CONTAINER_REGISTRY }} -g ${{ env.RESOURCE_GROUP }} .
